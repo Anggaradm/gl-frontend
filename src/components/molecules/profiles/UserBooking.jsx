@@ -35,6 +35,10 @@ const UserBooking = () => {
     getBookings();
   }, []);
 
+  useEffect(() => {
+    console.log(bookings);
+  }, [bookings]);
+
   const getBookings = async () => {
     const response = await axios.get(`${serverUrl}/booking-payments`);
     const data = response.data;
@@ -110,8 +114,13 @@ const UserBooking = () => {
                               <Link
                                 to={`/dashboard/booking/${booking._id}`}
                                 className="btn btn-ghost btn-outline btn-sm lowercase"
+                                disabled={
+                                  booking.roomId?.isBooked ? "disabled" : ""
+                                }
                               >
-                                lihat bukti bayar
+                                {booking.roomId?.isBooked
+                                  ? "dibooking"
+                                  : "lihat bukti bayar"}
                               </Link>
                             </div>
                           </td>
