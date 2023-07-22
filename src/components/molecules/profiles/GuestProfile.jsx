@@ -24,11 +24,10 @@ const GuestProfile = () => {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const [room, setRoom] = useState({});
   const [bookingPayments, setBookingPayments] = useState({});
-  const roomId = user.temporaryRoomId;
 
   const getRoom = async () => {
     await axios
-      .get(`${serverUrl}/rooms/${roomId}`)
+      .get(`${serverUrl}/rooms/${user.temporaryRoomId}`)
       .then((response) => {
         setRoom(response.data);
       })
@@ -51,19 +50,19 @@ const GuestProfile = () => {
 
   useEffect(() => {
     getRoom();
-  }, [room]);
+  }, [user]);
 
   useEffect(() => {
     getBookingPayments();
   }, [bookingPayments]);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
 
   return (
     <>
-      <div className="alert alert-warning">
+      <div className="alert alert-warning m-16">
         <Icon.AlertCircle size={20} />
         <span>
           Silakan melakukan pembayaran <br />
@@ -71,7 +70,7 @@ const GuestProfile = () => {
           BCA 1234567890 a.n. ALI MAHMUDI
         </span>
       </div>
-      <h1 className="text-4xl font-bold mb-4 text-center pt-12">{user.name}</h1>
+      <h1 className="text-4xl font-bold mb-2 text-center">{user.name}</h1>
       <div className="py-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
         <div className="menu bg-base-200 w-full rounded-box flex flex-col gap-4">
           <div className="flex gap-6">
