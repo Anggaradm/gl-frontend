@@ -21,6 +21,7 @@ const SignupForm = () => {
   const [validation, setValidation] = useState("");
   const [company, setCompany] = useState("");
   const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("laki-laki");
   const [match, setMatch] = useState(true);
 
   const [message, setMessage] = useState("");
@@ -58,6 +59,10 @@ const SignupForm = () => {
     setAddress(e.target.value);
   };
 
+  const handleChangeGender = (e) => {
+    setGender(e.target.value);
+  };
+
   // consumeAPI
   const navigate = useNavigate();
 
@@ -73,6 +78,7 @@ const SignupForm = () => {
         phone: phone,
         company: company,
         address: address,
+        gender: gender,
       })
       .then((response) => {
         setMessage(response.data.message);
@@ -86,7 +92,7 @@ const SignupForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log({ name, email, password, validation, phone });
+    // console.log({ name, email, password, validation, phone, gender });
 
     createUser();
   };
@@ -152,6 +158,19 @@ const SignupForm = () => {
                 required
                 className="input input-bordered w-full max-w-xs"
               />
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Jenis Kelamin</span>
+              </label>
+              <select
+                onChange={handleChangeGender}
+                className="select select-bordered"
+                value={gender}
+              >
+                <option value="laki-laki">Laki-laki</option>
+                <option value="perempuan">Perempuan</option>
+              </select>
             </div>
             <div className="form-control w-full max-w-xs">
               <label htmlFor="phoneInput" className="label">
